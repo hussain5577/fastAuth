@@ -1,11 +1,15 @@
-from sqlalchemy import create_all, create_engine
+# app/db/database.py
+# app/db/database.py
+from sqlalchemy import create_engine  # Removed 'create_all'
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from app.config.config import settings
 
-# Use your Neon connection string in .env as DATABASE_URL
+# Neon/Postgres engine
 engine = create_engine(settings.DATABASE_URL)
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
 Base = declarative_base()
 
 # Dependency to get DB session in routes

@@ -1,20 +1,18 @@
-from sqlalchemy import String, Boolean, DateTime, JSON
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, JSON
 from datetime import datetime
-from .base import Base
+from  app.db.database import Base
 
 class User(Base):
     __tablename__ = "users"
 
-    id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    email: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=False)
-    full_name: Mapped[str] = mapped_column(String, nullable=True)
-    google_id: Mapped[str] = mapped_column(String, unique=True, index=True)
-    picture: Mapped[str] = mapped_column(String, nullable=True)
-    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True, nullable=False)
+    full_name = Column(String, nullable=True)
+    google_id = Column(String, unique=True, index=True)
+    picture = Column(String, nullable=True)
+    is_active = Column(Boolean, default=True)
     
-    # Stores the full payload from Google for future-proofing
-    raw_data: Mapped[dict] = mapped_column(JSON, nullable=True) 
+    raw_data = Column(JSON, nullable=True) 
     
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
-    last_login: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    last_login = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
